@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon Rainforest — Ecology Field Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep:    #1a3a1f;
+    --green-mid:     #2d6a35;
+    --green-bright:  #4caf50;
+    --green-light:   #a8d5a2;
+    --green-pale:    #e8f5e2;
+    --gold:          #c9a84c;
+    --gold-light:    #f0d898;
+    --cream:         #faf8f2;
+    --text-dark:     #1a2a1c;
+    --text-mid:      #3a5040;
+    --text-light:    #6a8a6e;
+    --white:         #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,58,31,0.96);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--green-light);
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(160deg, rgba(26,58,31,0.85) 0%, rgba(45,106,53,0.6) 60%, rgba(26,58,31,0.9) 100%),
+      url('https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1600&q=80') center/cover no-repeat;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+  }
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    max-width: 900px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--green-light);
+    margin-top: 1.5rem;
+    max-width: 600px;
+  }
+  .hero-badge {
+    margin-top: 3rem;
+    display: inline-flex; gap: 2rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.75rem 2rem;
+    border-radius: 2px;
+  }
+  .hero-badge span {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-badge span + span { border-left: 1px solid rgba(201,168,76,0.3); padding-left: 2rem; }
+
+  /* ── SECTION SHELLS ── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--green-deep);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--green-mid);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+  p { font-size: 1.08rem; color: var(--text-mid); margin-bottom: 1.25rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── ALTERNATING BG ── */
+  .bg-pale  { background: var(--green-pale); }
+  .bg-deep  { background: var(--green-deep); }
+  .bg-white { background: var(--white); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--green-bright));
+    margin: 0 0 2.5rem;
+    border-radius: 2px;
+  }
+
+  /* ── CARD GRID ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  .card {
+    background: var(--white);
+    border: 1px solid rgba(45,106,53,0.12);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--green-mid), var(--gold));
+  }
+  .card:hover { box-shadow: 0 12px 40px rgba(26,58,31,0.12); transform: translateY(-3px); }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+  /* ── STAT ROW ── */
+  .stats { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem; }
+  .stat {
+    flex: 1 1 160px;
+    background: var(--green-deep);
+    color: var(--white);
+    padding: 1.5rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    display: block;
+  }
+  .stat-label { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--green-light); letter-spacing: 0.08em; }
+
+  /* ── QUOTE BLOCK ── */
+  .pullquote {
+    border-left: 4px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    background: rgba(201,168,76,0.06);
+  }
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--green-deep);
+  }
+
+  /* ── SPECIES HERO ── */
+  .species-header {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    margin-bottom: 4rem;
+  }
+  @media(max-width:700px){ .species-header { grid-template-columns: 1fr; } }
+  .species-img {
+    width: 100%; height: 340px; object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(26,58,31,0.2);
+  }
+  .taxon-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  .taxon-table td {
+    padding: 0.5rem 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(45,106,53,0.1);
+    vertical-align: top;
+  }
+  .taxon-table td:first-child { color: var(--text-light); width: 120px; }
+  .taxon-table td:last-child { color: var(--text-dark); font-weight: 600; }
+
+  /* ── LIST STYLED ── */
+  ul.fancy { list-style: none; padding: 0; }
+  ul.fancy li {
+    padding: 0.6rem 0 0.6rem 1.8rem;
+    position: relative;
+    border-bottom: 1px solid rgba(45,106,53,0.08);
+    font-size: 1.05rem;
+    color: var(--text-mid);
+  }
+  ul.fancy li::before {
+    content: '◆';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 0.6rem;
+    top: 0.95rem;
+  }
+
+  /* ── FOOD WEB ── */
+  .food-web {
+    background: var(--green-deep);
+    border-radius: 4px;
+    padding: 2.5rem;
+    margin-top: 2rem;
+    color: var(--white);
+  }
+  .food-web h3 { color: var(--gold-light); }
+  .chain {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+    margin-top: 1rem; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+  }
+  .chain-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    color: var(--gold-light);
+  }
+  .chain-arrow { color: var(--green-light); font-size: 1.2rem; }
+
+  /* ── IMPACT TABLE ── */
+  .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+  @media(max-width:600px){ .impact-grid { grid-template-columns: 1fr; } }
+  .impact-box { padding: 1.75rem; border-radius: 4px; }
+  .impact-positive { background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.3); }
+  .impact-negative { background: rgba(180,60,40,0.07); border: 1px solid rgba(180,60,40,0.2); }
+  .impact-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+  }
+  .impact-positive h4 { color: var(--green-mid); }
+  .impact-negative h4 { color: #8b3a2a; }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 2rem; margin-top: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), var(--green-bright)); }
+  .tl-item { position: relative; margin-bottom: 2rem; }
+  .tl-dot {
+    position: absolute; left: -2.45rem; top: 0.3rem;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+  }
+
+  /* ── QR SECTION ── */
+  .qr-section {
+    background: var(--green-deep);
+    padding: 5rem 2rem;
+    text-align: center;
+    color: var(--white);
+  }
+  .qr-section h2 { color: var(--gold-light); }
+  .qr-placeholder {
+    display: inline-block;
+    width: 160px; height: 160px;
+    background: var(--white);
+    margin: 2rem auto;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .qr-placeholder span { font-size: 3rem; }
+  .qr-placeholder small { font-size: 0.7rem; color: var(--text-mid); font-family: 'Cormorant Garamond', serif; }
+  .qr-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--green-light);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-deep);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+  footer strong { color: var(--gold-light); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero h1, .hero-sub, .hero-badge { animation: fadeUp 0.8s ease both; }
+  .hero-sub { animation-delay: 0.15s; }
+  .hero-badge { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">🌿 Amazon Rainforest</div>
+  <ul class="nav-links">
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#jaguar">Jaguar</a></li>
+    <li><a href="#plant">Victoria Amazonica</a></li>
+    <li><a href="#impact">Human Impact</a></li>
+    <li><a href="#conservation">Conservation</a></li>
+    <li><a href="#feedback">Feedback</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">MYP 5 Ecology Research Project</div>
+  <h1>The <em>Amazon</em><br>Rainforest</h1>
+  <p class="hero-sub">Earth's most biodiverse ecosystem — a living cathedral of evolution.</p>
+  <div class="hero-badge">
+    <span>South America</span>
+    <span>Tropical Rainforest Biome</span>
+    <span>10 Million+ Species</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════ 1. ECOSYSTEM ═══════════════ -->
+<section id="ecosystem" class="bg-white">
+<div class="container">
+  <div class="section-label">01 — Ecosystem Overview</div>
+  <h2>Defining the Amazon Rainforest</h2>
+  <div class="divider"></div>
+
+  <p>The Amazon Rainforest is the world's largest tropical rainforest, stretching across nine countries in South America. It is a <strong>tropical moist broadleaf forest</strong> — an ecosystem defined by perennial warmth, extraordinary rainfall, and extraordinary biodiversity. The forest acts as both the lungs of the Earth and a planetary thermostat, cycling vast quantities of water and carbon each day.</p>
+
+  <p>The biome is classified as a <strong>Tropical Rainforest</strong>, characterised by a closed canopy that blocks most sunlight from reaching the forest floor, stratified vegetation layers (emergent, canopy, understory, forest floor), and year-round growing conditions that produce the most species-rich terrestrial biome on the planet.</p>
+
+  <div class="pullquote">
+    <p>"The Amazon stores an estimated 150–200 billion tonnes of carbon — more than a decade of global CO₂ emissions — in its trees and soils."</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-num">5.5M</span><span class="stat-label">km² Forest Area</span></div>
+    <div class="stat"><span class="stat-num">~2,500</span><span class="stat-label">mm Annual Rainfall</span></div>
+    <div class="stat"><span class="stat-num">25–28°C</span><span class="stat-label">Average Temperature</span></div>
+    <div class="stat"><span class="stat-num">40,000+</span><span class="stat-label">Plant Species</span></div>
+    <div class="stat"><span class="stat-num">3M+</span><span class="stat-label">Insect Species</span></div>
+  </div>
+
+  <br><br>
+  <h3>Geographic Location & Features</h3>
+  <p>The Amazon basin occupies roughly 40% of the South American continent, centred primarily in Brazil but extending into Peru, Colombia, Venezuela, Ecuador, Bolivia, Guyana, Suriname, and French Guiana. It spans latitudes from approximately <strong>5°N to 15°S</strong> — straddling the equator.</p>
+  <ul class="fancy">
+    <li><strong>Amazon River:</strong> The world's largest river by discharge, carrying roughly 20% of all fresh water flowing into the world's oceans.</li>
+    <li><strong>Andes Mountains:</strong> The western boundary; glacial meltwater feeds the river system.</li>
+    <li><strong>Igapó & Várzea:</strong> Seasonally flooded forests that form unique aquatic-terrestrial ecosystems.</li>
+    <li><strong>Cerrado Boundary:</strong> The forest grades into Brazilian savanna to the south and east.</li>
+    <li><strong>Altitude:</strong> Ranges from sea level to Andean foothills at ~3,000 m, creating altitudinal gradients of biodiversity.</li>
+  </ul>
+
+  <br>
+  <h3>Climate & Weather Patterns</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🌡️</div>
+      <h3>Temperature</h3>
+      <p>Consistently warm year-round: <strong>25–30°C</strong> daily. Diurnal temperature swings (day vs night) often exceed seasonal swings. The canopy buffers the forest floor from extremes.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌧️</div>
+      <h3>Precipitation</h3>
+      <p>Annual rainfall of <strong>2,000–3,500 mm</strong> depending on location. Rain falls most days; the forest itself generates around half its own rainfall through <em>evapotranspiration</em> — trees pump water vapour into the atmosphere via their leaves.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌀</div>
+      <h3>Seasons</h3>
+      <p>Rather than hot/cold seasons, the Amazon has <strong>wet and dry seasons</strong>. The wet season (Dec–May in much of Brazil) sees river levels rise by up to 15 metres, flooding vast forest corridors.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Climate Effects</h3>
+      <p>High humidity (80–90%) and cloud cover regulate temperature. The forest stabilises regional rainfall patterns for South American agriculture — a phenomenon called <em>flying rivers</em>.</p>
+    </div>
+  </div>
+
+  <br><br>
+  <h3>Ecosystem Services</h3>
+  <p>The Amazon provides benefits far beyond its borders, underpinning human economies and well-being at a global scale:</p>
+  <div class="card-grid">
+    <div class="card"><div class="card-icon">🫁</div><h3>Carbon Sequestration</h3><p>Absorbs and stores billions of tonnes of CO₂, acting as a global buffer against climate change.</p></div>
+    <div class="card"><div class="card-icon">💧</div><h3>Freshwater</h3><p>The Amazon River delivers 20% of Earth's freshwater to the ocean; the basin is the largest freshwater reserve on the planet.</p></div>
+    <div class="card"><div class="card-icon">💊</div><h3>Medicinal Resources</h3><p>Roughly 25% of Western pharmaceuticals are derived from rainforest plants. Curare (muscle relaxants), quinine (malaria), and vincristine (cancer treatment) all originate here.</p></div>
+    <div class="card"><div class="card-icon">🌾</div><h3>Food &amp; Agriculture</h3><p>Cacao, rubber, açaí, Brazil nuts, cassava — staple and luxury crops the world relies upon originated in the Amazon.</p></div>
+    <div class="card"><div class="card-icon">🌦️</div><h3>Climate Regulation</h3><p>"Flying rivers" — moisture-laden winds — water crops in Brazil's agricultural heartland, a service worth billions annually.</p></div>
+    <div class="card"><div class="card-icon">👥</div><h3>Cultural Services</h3><p>Home to ~400 distinct indigenous peoples whose languages, knowledge systems, and cultural heritage represent irreplaceable human diversity.</p></div>
+  </div>
+</div>
+</section>
+
+
+<!-- ═══════════════ 2. JAGUAR ═══════════════ -->
+<section id="jaguar" class="bg-pale">
+<div class="container">
+  <div class="section-label">02 — Featured Animal</div>
+  <h2>Panthera onca — The Jaguar</h2>
+  <div class="divider"></div>
+
+  <div class="species-header">
+    <div>
+      <table class="taxon-table">
+        <tr><td>Kingdom</td><td>Animalia</td></tr>
+        <tr><td>Phylum</td><td>Chordata</td></tr>
+        <tr><td>Class</td><td>Mammalia</td></tr>
+        <tr><td>Order</td><td>Carnivora</td></tr>
+        <tr><td>Family</td><td>Felidae</td></tr>
+        <tr><td>Genus</td><td><em>Panthera</em></td></tr>
+        <tr><td>Species</td><td><em>P. onca</em></td></tr>
+        <tr><td>Status</td><td>Vulnerable (IUCN)</td></tr>
+        <tr><td>Weight</td><td>56–96 kg</td></tr>
+        <tr><td>Lifespan</td><td>12–15 years (wild)</td></tr>
+      </table>
+    </div>
+    <div>
+      <p>The jaguar is the <strong>largest cat in the Americas</strong> and the apex predator of the Amazon rainforest. Unlike other large cats, jaguars are powerful swimmers and actively hunt in rivers and flooded forests. Their name derives from the indigenous Tupi word <em>yaguara</em> — "he who kills with one leap." They are solitary, territorial, and largely nocturnal.</p>
+      <p>Jaguars occupy a critical ecological role as a <em>keystone species</em>: controlling prey populations maintains the balance of the entire food web, preventing overgrazing of vegetation and cascading ecological collapse.</p>
+    </div>
+  </div>
+
+  <h3>Adaptations to the Amazon Rainforest</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🐾</div>
+      <h3>Rosette Coat Pattern</h3>
+      <p>The distinctive golden coat covered in rosette spots — rings of black dots surrounding a central spot — provides <strong>dappled camouflage</strong> in the forest, mimicking light filtering through the canopy. Melanistic (black) jaguars carry the same pattern but with dark pigment masking it.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💪</div>
+      <h3>Jaw Morphology</h3>
+      <p>Jaguars have the <strong>strongest bite force relative to size</strong> of any big cat — able to pierce turtle shells and caiman skulls. This allows them to exploit a uniquely wide prey base unavailable to lions or leopards, including heavily armoured riverine prey.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏊</div>
+      <h3>Aquatic Proficiency</h3>
+      <p>Unlike most cats, jaguars <strong>actively seek water</strong>. Dense limb musculature and large, webbed-like paws enable powerful swimming. During the wet season, flooded várzea forests become the jaguar's primary hunting ground for fish, caimans, and capybara.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌙</div>
+      <h3>Crepuscular Hunting</h3>
+      <p>Jaguars hunt primarily at <strong>dusk and dawn</strong> when light conditions give their tapetum lucidum (a reflective layer behind the retina) the greatest advantage, and when prey are most active near water sources.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h3>Stalk-and-Ambush Strategy</h3>
+      <p>Unlike lions that pursue prey, jaguars rely on a <strong>patient ambush technique</strong> — perfectly suited to dense jungle. Powerful hindquarters allow explosive acceleration over short distances; a single suffocating bite to the skull or neck dispatches prey instantly.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗺️</div>
+      <h3>Large Home Range</h3>
+      <p>Males maintain territories of <strong>25–150 km²</strong>, scent-marked with urine and claw marks on trees. Large ranges ensure sufficient prey availability in a forest where prey density is lower than savannas — reducing intraspecific competition.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔇</div>
+      <h3>Paw Pad Adaptation</h3>
+      <p>Cushioned, broad paw pads allow near-<strong>silent movement</strong> across forest leaf litter and root systems, a critical advantage for a predator that must close the gap to within a few metres before striking.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🍖</div>
+      <h3>Dietary Versatility</h3>
+      <p>Documented to prey on over <strong>85 species</strong> — from fish and frogs to peccaries, deer, capybara, tapirs, and caimans. This <em>dietary flexibility</em> means jaguars can persist through seasonal changes in prey abundance.</p>
+    </div>
+  </div>
+
+  <div class="food-web">
+    <h3>Food Web Position — Jaguar as Apex Predator</h3>
+    <p style="color:var(--green-light); font-family:'Cormorant Garamond',serif; margin-top:0.5rem;">Energy flows upward through trophic levels:</p>
+
+    <div class="chain">
+      <div class="chain-box">☀️ Solar Energy</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🌱 Bromeliads / Grasses / Aquatic Plants</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🐟 Piranhas / Arapaima</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🐊 Caiman</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🐆 Jaguar</div>
+    </div>
+    <div class="chain" style="margin-top:0.75rem;">
+      <div class="chain-box">🌿 Leaves / Fruit / Seeds</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🐷 Collared Peccary</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🐆 Jaguar</div>
+    </div>
+    <div class="chain" style="margin-top:0.75rem;">
+      <div class="chain-box">🌳 Forest Vegetation</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🦛 Capybara / Tapir</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🐆 Jaguar</div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-box">🦠 Decomposers (Fungi / Bacteria)</div>
+    </div>
+    <p style="color:var(--green-light); margin-top:1.25rem; font-size:0.95rem; font-family:'Cormorant Garamond',serif; font-style:italic;">As apex predator, the jaguar's removal would trigger a <strong style="color:var(--gold-light);">trophic cascade</strong> — peccary populations would explode, overgrazing vegetation, destabilising the forest floor, and reducing biodiversity at every level.</p>
+  </div>
+
+  <br>
+  <h3>Symbiotic Relationships</h3>
+  <ul class="fancy">
+    <li><strong>Predator–prey regulation (–/+):</strong> Jaguars control capybara and peccary populations, preventing overgrazing and protecting forest regeneration.</li>
+    <li><strong>Seed dispersal mutualism (+/+):</strong> Jaguars defecate seeds of fruit consumed incidentally in prey stomachs, acting as secondary seed dispersers across large distances.</li>
+    <li><strong>Ectoparasite hosting (+/–):</strong> Ticks and mites parasitise jaguar skin; oxpecker-equivalent birds in the Amazon pick insects from jungle cats, though this is less documented than in African savannas.</li>
+    <li><strong>Competition (–/–):</strong> Pumas and ocelots compete with jaguars for mid-sized prey; jaguars' larger size usually ensures dominance, pushing smaller cats to different microhabitats.</li>
+  </ul>
+</div>
+</section>
+
+
+<!-- ═══════════════ 3. PLANT ═══════════════ -->
+<section id="plant" class="bg-white">
+<div class="container">
+  <div class="section-label">03 — Featured Plant</div>
+  <h2>Victoria amazonica — Giant Water Lily</h2>
+  <div class="divider"></div>
+
+  <div class="species-header">
+    <div>
+      <table class="taxon-table">
+        <tr><td>Kingdom</td><td>Plantae</td></tr>
+        <tr><td>Division</td><td>Magnoliophyta</td></tr>
+        <tr><td>Class</td><td>Magnoliopsida</td></tr>
+        <tr><td>Order</td><td>Nymphaeales</td></tr>
+        <tr><td>Family</td><td>Nymphaeaceae</td></tr>
+        <tr><td>Genus</td><td><em>Victoria</em></td></tr>
+        <tr><td>Species</td><td><em>V. amazonica</em></td></tr>
+        <tr><td>Pad diameter</td><td>Up to 3 metres</td></tr>
+        <tr><td>Load capacity</td><td>Up to 40 kg</td></tr>
+        <tr><td>Habitat</td><td>Shallow várzea lakes</td></tr>
+      </table>
+    </div>
+    <div>
+      <p>The <em>Victoria amazonica</em> is the world's largest water lily, producing circular floating leaf pads that can reach <strong>3 metres in diameter</strong> — large enough to support a small child. It grows in the shallow, nutrient-rich flooded lakes (<em>igapós</em> and <em>várzeas</em>) of the Amazon basin, flowering for only 48 hours per bloom cycle.</p>
+      <p>It is one of the most architecturally and ecologically fascinating plants on Earth. Its rib-reinforced underside inspired the structural design of the Crystal Palace (1851) and modern lightweight vaulted roofs, demonstrating how evolutionary engineering anticipates human invention.</p>
+    </div>
+  </div>
+
+  <h3>Adaptations to the Amazon Ecosystem</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <h3>Structural Leaf Architecture</h3>
+      <p>The underside of each pad features a <strong>network of radial and concentric ribs</strong> — an air-filled lattice that distributes load evenly across the surface (like a ribbed vault in architecture). This allows the thin pad to support weights of up to 40 kg without sinking, maximising surface area while minimising material use.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚫</div>
+      <h3>Upturned Rim</h3>
+      <p>Each pad has a <strong>2–20 cm upturned rim</strong> around its edge, preventing water from splashing onto the leaf surface. This protects the pad from being swamped, maintains buoyancy in rain events, and discourages herbivores from feeding at the edges.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌊</div>
+      <h3>Waxy, Hydrophobic Surface</h3>
+      <p>The upper leaf surface is coated in a <strong>waxy epicuticle</strong> that causes water to bead and roll off (the <em>lotus effect</em>), keeping the photosynthetic surface clean, dry, and free of algal overgrowth that would block sunlight absorption.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌹</div>
+      <h3>Thermogenic Pollination</h3>
+      <p>One of the most remarkable plant adaptations: the flower <strong>generates its own heat</strong> (thermogenesis), warming the interior to ~10°C above ambient. On night 1 it opens white, traps visiting Cyclocephala beetles inside, covering them with pollen, then turns pink and releases them on night 2 — a perfectly timed <em>mutualistic pollination</em> mechanism.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <h3>Rapid Growth Rate</h3>
+      <p>Pads grow at <strong>up to 1 m² per day</strong> during the growing season — an extraordinary growth rate that allows the plant to dominate available light in shallow water bodies, outcompeting smaller aquatic plants.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🐾</div>
+      <h3>Armoured Spines</h3>
+      <p>The stems, pad undersides, and flower parts are covered in <strong>sharp spines</strong>, deterring manatees, fish, and turtles from grazing on the plant. This structural defence is paired with chemical deterrents in the leaf tissue.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💨</div>
+      <h3>Aerenchyma Tissue</h3>
+      <p>Stems and petioles contain <strong>aerenchyma</strong> — spongy tissue with large air-filled intercellular spaces. This supplies oxygen to submerged roots in the anoxic river sediments and provides buoyancy to the enormous leaf pads.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Seasonal Life Cycle</h3>
+      <p>In Peru and Brazil the plant behaves as an <strong>annual</strong>, dying back when flood waters recede and regrowing from seed or rhizome when the várzea floods again. This perfectly synchronises its growth with the Amazon's flood pulse — the dominant ecological driver of the floodplain.</p>
+    </div>
+  </div>
+
+  <br>
+  <h3>Ecological Role & Symbioses</h3>
+  <ul class="fancy">
+    <li><strong>Mutualism with Cyclocephala beetles (+/+):</strong> The heat and scent attract beetles; beetles receive food and warmth; the plant receives reliable cross-pollination each night.</li>
+    <li><strong>Habitat provision (+/0):</strong> The giant pads serve as basking platforms for water birds, frogs, and lizards; their shade creates cool microhabitats for fish sheltering beneath.</li>
+    <li><strong>Competition (–/–):</strong> Dense coverage blocks light to submerged aquatic plants; during peak growth season, <em>V. amazonica</em> can dominate oxbow lakes entirely.</li>
+    <li><strong>Decomposer link:</strong> Decaying pads contribute significant organic matter to the lake floor, feeding invertebrates and microbes that in turn fuel the aquatic food web.</li>
+  </ul>
+</div>
+</section>
+
+
+<!-- ═══════════════ 4. HUMAN IMPACT ═══════════════ -->
+<section id="impact" class="bg-pale">
+<div class="container">
+  <div class="section-label">04 — Human Impact</div>
+  <h2>How Human Activity Shapes the Amazon</h2>
+  <div class="divider"></div>
+
+  <p>Human impact on the Amazon has accelerated dramatically since the mid-20th century. The forces driving change range from industrial agriculture and mining to well-intentioned but underfunded conservation programmes. The Amazon is now approaching critical tipping points where self-sustaining rainfall cycles may collapse.</p>
+
+  <div class="impact-grid">
+    <div class="impact-box impact-negative">
+      <h4>⛔ Deforestation</h4>
+      <p>An estimated <strong>17% of the Amazon has been cleared</strong> since 1970 — an area larger than France and Germany combined. Cattle ranching (responsible for ~80% of deforestation), soy farming, and logging are the primary drivers. Brazil alone lost over 11,000 km² in 2022.</p>
+    </div>
+    <div class="impact-box impact-negative">
+      <h4>⛔ Mining & Illegal Gold Mining</h4>
+      <p>Mercury used in artisanal gold mining contaminates rivers, bioaccumulates in fish, and poisons indigenous communities who depend on those waterways. Legal and illegal mining operations destroy riverine ecosystems in Yanomami and Kayapó territories.</p>
+    </div>
+    <div class="impact-box impact-negative">
+      <h4>⛔ Climate Change Feedback</h4>
+      <p>A warmer, drier Amazon is increasingly vulnerable to wildfire. Fires — both natural and deliberately set — release stored carbon, accelerating the very climate change that dries the forest further. Scientists warn of a <em>dieback tipping point</em> if deforestation exceeds ~25%.</p>
+    </div>
+    <div class="impact-box impact-negative">
+      <h4>⛔ Jaguar Habitat Loss</h4>
+      <p>Jaguar range has contracted by over <strong>40% historically</strong>. Fragmented forests prevent gene flow between populations, creating inbreeding depression. Road construction opens previously inaccessible forest to hunting and ranching.</p>
+    </div>
+    <div class="impact-box impact-positive">
+      <h4>✅ Indigenous Land Rights</h4>
+      <p>Studies consistently show that <strong>indigenous-managed territories have lower deforestation rates</strong> than national parks. Legal recognition of indigenous land rights in Brazil and Peru has protected millions of hectares effectively and at low cost.</p>
+    </div>
+    <div class="impact-box impact-positive">
+      <h4>✅ Sustainable Forestry & Ecotourism</h4>
+      <p>Certified sustainable timber, Brazil nut harvesting, and ecotourism ventures provide economic alternatives to clearing. Acre State's REDD+ programme has slowed deforestation while raising rural incomes.</p>
+    </div>
+    <div class="impact-box impact-positive">
+      <h4>✅ Reforestation Programmes</h4>
+      <p>Brazil's Atlantic Forest Restoration Pact and initiatives like Viveiro Guaporé aim to restore degraded land. Planting native species restores both carbon stocks and corridors for species like jaguars.</p>
+    </div>
+    <div class="impact-box impact-positive">
+      <h4>✅ Protected Area Networks</h4>
+      <p>The Amazon Conservation Area network protects <strong>2.2 million km²</strong> across nine countries. Strict protection combined with sustainable-use buffer zones balances biodiversity and local livelihoods.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- ═══════════════ 5. THREATS ═══════════════ -->
+<section class="bg-deep">
+<div class="container">
+  <div class="section-label" style="color:var(--gold);">05 — Threats & Challenges</div>
+  <h2 style="color:var(--white);">Major Threats to the Amazon</h2>
+  <div class="divider"></div>
+
+  <div class="card-grid">
+    <div class="card" style="background:rgba(255,255,255,0.06); border-color:rgba(201,168,76,0.2);">
+      <div class="card-icon">🪓</div>
+      <h3 style="color:var(--gold-light);">Deforestation Tipping Point</h3>
+      <p style="color:var(--green-light);">Scientists at Brazil's INPE estimate a tipping point at 20–25% deforestation, beyond which the Amazon can no longer generate enough rainfall to sustain itself. Current deforestation is ~17%. Beyond the tipping point, vast swathes of forest could transform into degraded savanna irreversibly.</p>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.06); border-color:rgba(201,168,76,0.2);">
+      <div class="card-icon">🌡️</div>
+      <h3 style="color:var(--gold-light);">Climate Change</h3>
+      <p style="color:var(--green-light);">Rising global temperatures extend Amazon dry seasons, increasing drought stress and fire risk. The 2005, 2010, and 2015–16 droughts were the worst in recorded history — each time scientists said "once in a century" events were becoming annual occurrences.</p>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.06); border-color:rgba(201,168,76,0.2);">
+      <div class="card-icon">🦟</div>
+      <h3 style="color:var(--gold-light);">Invasive Species</h3>
+      <p style="color:var(--green-light);">African grass species introduced for cattle pasture outcompete native vegetation and create fire-prone monocultures. Limnoperna fortunei (golden mussel) is disrupting freshwater ecosystems, clogging infrastructure, and displacing native molluscs.</p>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.06); border-color:rgba(201,168,76,0.2);">
+      <div class="card-icon">🔫</div>
+      <h3 style="color:var(--gold-light);">Jaguar Poaching</h3>
+      <p style="color:var(--green-light);">A growing illegal trade driven by Chinese demand (as a substitute for tiger parts in traditional medicine) has seen jaguar teeth, skins, and bones seized in record quantities since 2014. Rancher retaliation killings add to the toll.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- ═══════════════ 6. CONSERVATION ═══════════════ -->
+<section id="conservation" class="bg-white">
+<div class="container">
+  <div class="section-label">06 — Conservation</div>
+  <h2>Conservation Efforts & Case Studies</h2>
+  <div class="divider"></div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <h3>Panthera's Jaguar Corridor Initiative (est. 2005)</h3>
+      <p>Panthera's Jaguar Corridor stretches 18 countries from Mexico to Argentina — the world's largest wildlife corridor. It maps and protects the genetic connectivity of jaguar populations, ensuring no sub-population becomes isolated. Working with ranchers to implement coexistence practices (livestock guardian dogs, predator-proof enclosures) has reduced retaliatory killings significantly in pilot areas.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <h3>Brazil's ARPA Programme (Amazon Protected Areas)</h3>
+      <p>A joint initiative between Brazil's government, WWF, GEF and the Gordon and Betty Moore Foundation, ARPA is the largest tropical forest conservation programme in history — protecting 60 million hectares (an area the size of France). A transition-finance model ensures long-term government funding after initial grants end.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <h3>Kayapó People's Forest Guardianship</h3>
+      <p>The 9,000-strong Kayapó people manage 11.3 million hectares in the Brazilian Amazon with virtually no deforestation. A 2020 study in <em>Nature Sustainability</em> confirmed that indigenous-managed territories sequester carbon equivalent to removing hundreds of millions of cars annually. Kayapó forest monitoring teams use GPS and drones to detect and report illegal intrusions in real time.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <h3>Iquitos-Nauta Jaguar Reforestation Corridor, Peru</h3>
+      <p>A corridor of restored native forest between Pacaya-Samiria National Reserve and Allpahuayo-Mishana National Reserve has allowed jaguars to recolonise areas where they had been absent for decades. Camera trap surveys documented a 40% increase in jaguar detections between 2015 and 2023.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <h3>Legal Deforestation Moratorium in Soy & Beef Supply Chains</h3>
+      <p>Following a 2006 Greenpeace campaign, major global companies (McDonald's, Walmart, Carrefour) committed to zero-deforestation supply chains. The Soy Moratorium reduced soy-driven deforestation in the Brazilian Amazon by 78% between 2008 and 2016, demonstrating that market pressure on supply chains can achieve conservation outcomes at scale.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- ═══════════════ 7. FEEDBACK QR ═══════════════ -->
+<section id="feedback" class="qr-section">
+  <div class="section-label" style="color:var(--gold);">07 — Audience Rating</div>
+  <h2>Share Your Feedback</h2>
+  <p style="color:var(--green-light); max-width:500px; margin:0 auto 1rem; font-family:'Cormorant Garamond',serif; font-size:1.15rem;">Did this exhibition inform you about the Amazon Rainforest? Scan the QR code below to fill in our short feedback form.</p>
+
+  <!-- Replace the src below with your actual Google Form QR code image -->
+  <div style="display:flex; flex-direction:column; align-items:center;">
+    <div class="qr-placeholder" style="display:flex;">
+      <span>📋</span>
+      <small>Replace with your<br>Google Form QR code</small>
+    </div>
+    <p class="qr-note">Your responses help us improve future exhibitions and track the impact of conservation education. The form takes under 2 minutes.</p>
+    <br>
+    <a href="YOUR_GOOGLE_FORM_LINK_HERE"
+       target="_blank"
+       style="display:inline-block; background:var(--gold); color:var(--green-deep); font-family:'Cormorant Garamond',serif; font-size:1rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.75rem 2.5rem; border-radius:2px; text-decoration:none; font-weight:600; transition:background 0.2s;">
+      Open Feedback Form ↗
+    </a>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <p style="color:var(--green-light);">
+    <strong>Amazon Rainforest — Ecology Field Study</strong><br>
+    MYP 5 Science · IB Programme · 2025–26<br>
+    <span style="font-style:italic;">Research compiled from IUCN Red List, WWF, Panthera, INPE, and peer-reviewed ecological literature.</span>
+  </p>
+</footer>
+
+<script>
+  // Smooth scroll highlight active nav link
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--gold-light)'
+        : 'var(--green-light)';
+    });
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card, .tl-item, .stat, .impact-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
